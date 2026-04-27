@@ -7,8 +7,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-scheduler": {
-      "projectType": "application",
-      "schematics": {},
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,9 +29,10 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ]
           },
+
           "configurations": {
             "production": {
               "budgets": [

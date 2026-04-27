@@ -15,7 +15,7 @@ import { InputPasswordComponent } from '../shared/components/input-password/inpu
     InputPasswordComponent
   ],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.scss'
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
