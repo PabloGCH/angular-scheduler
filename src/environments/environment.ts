@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  domain: "localhost:4200",
-  protocol: "http"
+  domain: "pgc-ng-scheduler.netlify.app",
+  protocol: "https"
 };
