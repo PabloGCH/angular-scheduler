@@ -4,7 +4,7 @@
   <main class="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden">
     @if (userType() === 'provider') {
       <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm relative">
-        <div class="flex-none w-20 sm:w-24">
+        <div class="flex-none w-30 sm:w-34">
           <button
             (click)="previousWeek()"
             class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
@@ -12,12 +12,12 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span class="hidden sm:inline">Prev</span>
-            <span class="sm:hidden">P</span>
+            <span class="hidden sm:inline">Previous week</span>
+            <span class="sm:hidden">Prev</span>
           </button>
         </div>
 
-        <div class="flex-1 flex items-center justify-start gap-2 sm:gap-4 px-4 overflow-hidden">
+        <div class="flex-1 flex items-center justify-center md:justify-start gap-2 sm:gap-4 px-4 overflow-hidden">
           <!-- Desktop Actions -->
           <div class="hidden md:flex items-center gap-2">
             <button
@@ -61,13 +61,13 @@
           </div>
         </div>
 
-        <div class="flex-none w-20 sm:w-24 flex justify-end">
+        <div class="flex-none w-30 sm:w-34 flex justify-end">
           <button
             (click)="nextWeek()"
             class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
           >
-            <span class="hidden sm:inline">Next</span>
-            <span class="sm:hidden">N</span>
+            <span class="hidden sm:inline">Next week</span>
+            <span class="sm:hidden">Next</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
