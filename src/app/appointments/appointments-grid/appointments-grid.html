@@ -1,4 +1,9 @@
-<div class="flex flex-col h-full bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+<div class="flex flex-col h-full bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden relative">
+  @if (loading()) {
+    <div class="absolute inset-0 z-50 bg-white/60 backdrop-blur-[1px] flex items-center justify-center">
+      <app-spinner size="lg"></app-spinner>
+    </div>
+  }
   <!-- Main Scroll Container -->
   <div class="flex-1 overflow-auto relative">
 
@@ -27,7 +32,10 @@
         <!-- Time Column (Sticky Left) -->
         <div class="w-16 sm:w-20 sticky left-0 z-30 bg-secondary-50 border-r border-secondary-200 flex-shrink-0">
           @for (slot of timeSlots; track slot) {
-            <div class="h-12 border-b border-secondary-200 text-secondary-500 flex items-center justify-center time-label">
+            <div
+              class="border-b border-secondary-200 text-secondary-500 flex items-center justify-center time-label"
+              [style.height.px]="slotHeight"
+            >
               {{ slot }}
             </div>
           }
@@ -42,7 +50,8 @@
             <!-- Grid Rows -->
             @for (slot of timeSlots; track slot; let i = $index) {
               <div
-                class="h-12 border-b border-secondary-100"
+                class="border-b border-secondary-100"
+                [style.height.px]="slotHeight"
                 [class.bg-secondary-50/50]="i % 2 === 0"
               ></div>
             }

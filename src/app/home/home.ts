@@ -1,80 +1,79 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { of, switchMap, tap, finalize, BehaviorSubject } from 'rxjs';
 import { TopbarComponent } from '../shared/components/topbar/topbar';
 import { AppointmentsGridComponent } from '../appointments/appointments-grid/appointments-grid';
 import { Authenticator } from '../auth/authenticator';
 import { AppointmentsManager } from '../appointments/appointments-manager';
+import { WeekAppointments } from '../appointments/appointment';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule, TopbarComponent, AppointmentsGridComponent],
-  template: `
-    <div class="h-screen flex flex-col overflow-hidden bg-secondary-50">
-      <app-topbar></app-topbar>
-      
-      <main class="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden">
-        @if (userType() === 'provider') {
-          <!-- Action Buttons Section -->
-          <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm">
-            <div class="w-1/4">
-              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-                Previous Week
-              </button>
-            </div>
-            
-            <div class="w-2/4 flex justify-center gap-4">
-              <button class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer">
-                Give appointment
-              </button>
-              <button class="border border-secondary-300 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-50 transition-colors cursor-pointer">
-                Configure
-              </button>
-            </div>
-
-            <div class="w-1/4 flex justify-end">
-              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer">
-                Next Week
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Appointments Grid -->
-          <div class="flex-1 overflow-hidden">
-            @if (appointments(); as apps) {
-              <app-appointments-grid [appointments]="apps" class="h-full"></app-appointments-grid>
-            } @else {
-              <div class="flex items-center justify-center h-full">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-              </div>
-            }
-          </div>
-        } @else {
-          <div class="max-w-7xl mx-auto w-full">
-            <h1 class="text-3xl font-bold text-secondary-900 mb-6">Welcome, Consumer</h1>
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-secondary-200">
-              <p class="text-secondary-600">This is your consumer dashboard. Book your next appointment here.</p>
-            </div>
-          </div>
-        }
-      </main>
-    </div>
-  `,
-  standalone: true
+  templateUrl: './home.html',
+  standalone: true,
 })
 export class HomeComponent {
   private readonly authService = inject(Authenticator);
   private readonly appointmentsService = inject(AppointmentsManager);
 
   protected readonly userType = computed(() => this.authService.getUserType());
-  
+  protected readonly menuOpen = signal(false);
+  protected readonly loading = signal(false);
+
+  protected readonly currentDate = signal(new Date('2026-04-27'));
+
+  protected readonly emptyWeek: WeekAppointments = {
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: [],
+    sunday: [],
+  };
+
+  private readonly refreshTrigger$ = new BehaviorSubject<Date>(this.currentDate());
+
   protected readonly appointments = toSignal(
-    this.appointmentsService.getProviderAppointments(new Date())
+    this.refreshTrigger$.pipe(
+      tap(() => this.loading.set(true)),
+      switchMap((date) =>
+        this.appointmentsService
+          .getAppointmentsForDay(date)
+          .pipe(finalize(() => this.loading.set(false))),
+      ),
+    ),
+    { initialValue: this.emptyWeek },
   );
+
+  protected readonly currentWeekStart = computed(() => {
+    const date = new Date(this.currentDate());
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(date.setDate(diff));
+    monday.setHours(0, 0, 0, 0);
+    return monday;
+  });
+
+  toggleMenu() {
+    this.menuOpen.update((v) => !v);
+  }
+
+  nextWeek() {
+    const next = new Date(this.currentWeekStart());
+    next.setDate(next.getDate() + 7);
+    this.currentDate.set(next);
+    this.refreshTrigger$.next(next);
+    this.menuOpen.set(false);
+  }
+
+  previousWeek() {
+    const prev = new Date(this.currentWeekStart());
+    prev.setDate(prev.getDate() - 7);
+    this.currentDate.set(prev);
+    this.refreshTrigger$.next(prev);
+    this.menuOpen.set(false);
+  }
 }

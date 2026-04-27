@@ -12,7 +12,8 @@ import { Appointment } from '../appointment';
       [style.height.px]="height()"
     >
       <div class="font-bold text-xs">{{ appointment().startTime }} - {{ appointment().endTime }}</div>
-      <div class="text-xs">Appointment</div>
+      <div class="text-xs font-semibold truncate">{{ appointment().title }}</div>
+      <div class="text-[10px] truncate opacity-80">{{ appointment().description }}</div>
     </div>
   `,
   standalone: true

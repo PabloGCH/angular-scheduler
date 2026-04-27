@@ -8,7 +8,7 @@ import { HARDCODED_APPOINTMENTS } from './hardcoded-data';
 })
 export class AppointmentsManager {
   
-  getProviderAppointments(date: Date): Observable<WeekAppointments> {
+  getAppointmentsForDay(date: Date): Observable<WeekAppointments> {
     // Calculate the start of the week (Monday) for the given date
     const day = date.getDay();
     const diff = date.getDate() - day + (day === 0 ? -6 : 1);

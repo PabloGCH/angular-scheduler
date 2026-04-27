@@ -1,6 +1,7 @@
 export interface Appointment {
   id: string;
   title: string;
+  description: string;
   startTime: string; // HH:mm format
   endTime: string;   // HH:mm format
   date: string;      // YYYY-MM-DD

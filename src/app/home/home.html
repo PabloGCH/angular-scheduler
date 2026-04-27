@@ -1,0 +1,87 @@
+<div class="h-screen flex flex-col overflow-hidden bg-secondary-50">
+  <app-topbar></app-topbar>
+
+  <main class="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden">
+    @if (userType() === 'provider') {
+      <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm relative">
+        <div class="flex-none w-30 sm:w-34">
+          <button
+            (click)="previousWeek()"
+            class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span class="hidden sm:inline">Previous week</span>
+            <span class="sm:hidden">Prev </span>
+          </button>
+        </div>
+
+        <div class="flex-1 flex items-center justify-start gap-2 sm:gap-4 px-4 overflow-hidden">
+          <!-- Desktop Actions -->
+          <div class="hidden md:flex items-center gap-2">
+            <button class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap">
+              Make appointment
+            </button>
+            <button class="bg-secondary-100 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-200 transition-colors cursor-pointer whitespace-nowrap">
+              Give appointment
+            </button>
+            <button class="border border-secondary-300 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-50 transition-colors cursor-pointer whitespace-nowrap">
+              Configure
+            </button>
+          </div>
+
+          <!-- Mobile Burger Menu -->
+          <div class="md:hidden">
+            <button
+              (click)="toggleMenu()"
+              class="p-2 text-secondary-600 hover:bg-secondary-50 rounded-md cursor-pointer transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
+            @if (menuOpen()) {
+              <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-secondary-200 shadow-lg rounded-lg z-50 p-2 flex flex-col gap-1">
+                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Make appointment</button>
+                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Give appointment</button>
+                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Configure</button>
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <div class="flex-none w-30 sm:w-34 flex justify-end">
+          <button
+            (click)="nextWeek()"
+            class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
+          >
+            <span class="hidden sm:inline">Next week</span>
+            <span class="sm:hidden">Next</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Appointments Grid -->
+      <div class="flex-1 overflow-hidden">
+        <app-appointments-grid
+          [appointments]="appointments()"
+          [loading]="loading()"
+          class="h-full"
+        ></app-appointments-grid>
+      </div>
+    } @else {
+      <div class="max-w-7xl mx-auto w-full">
+        <h1 class="text-3xl font-bold text-secondary-900 mb-6">Welcome, Consumer</h1>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-secondary-200">
+          <p class="text-secondary-600">This is your consumer dashboard. Book your next appointment here.</p>
+        </div>
+      </div>
+    }
+  </main>
+</div>
