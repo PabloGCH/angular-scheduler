@@ -1,7 +1,7 @@
 
 
 
-- [ ] Install tailwind
+- [x] Install tailwind
 - [ ] Create login view
 - [ ] Create login service simulating BE
 - [ ] Create navbar with logout icon
