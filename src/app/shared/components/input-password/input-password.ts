@@ -24,6 +24,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
           Password must be at least 6 characters long.
         </div>
       }
+      @if (errorMessage()) {
+        <div class="mt-1 text-xs text-red-500">
+          {{ errorMessage() }}
+        </div>
+      }
     </div>
   `,
   standalone: true
@@ -33,4 +38,5 @@ export class InputPasswordComponent {
   id = input<string>('password');
   autocomplete = input<string>('current-password');
   control = input.required<FormControl>();
+  errorMessage = input<string | null>(null);
 }

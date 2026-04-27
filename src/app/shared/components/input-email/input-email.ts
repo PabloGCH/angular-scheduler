@@ -24,6 +24,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
           Please enter a valid email address.
         </div>
       }
+      @if (errorMessage()) {
+        <div class="mt-1 text-xs text-red-500">
+          {{ errorMessage() }}
+        </div>
+      }
     </div>
   `,
   standalone: true
@@ -33,4 +38,5 @@ export class InputEmailComponent {
   id = input<string>('email');
   autocomplete = input<string>('email');
   control = input.required<FormControl>();
+  errorMessage = input<string | null>(null);
 }
