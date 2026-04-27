@@ -5,7 +5,7 @@ import { Authenticator } from '../../../auth/authenticator';
 @Component({
   selector: 'app-topbar',
   template: `
-    <nav class="bg-white border-b border-secondary-200 px-4 py-2.5 flex justify-end items-center">
+    <nav class="bg-secondary-100 border-b border-secondary-200 px-4 py-2.5 flex justify-end items-center">
       <button
         (click)="logout()"
         class="p-2 text-secondary-600 hover:text-primary-600 hover:bg-secondary-50 rounded-lg transition-colors cursor-pointer"

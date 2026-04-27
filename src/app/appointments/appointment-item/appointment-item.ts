@@ -6,8 +6,8 @@ import { Appointment } from '../appointment';
   selector: 'app-appointment-item',
   imports: [CommonModule],
   template: `
-    <div 
-      class="absolute left-1 right-1 p-1.5 rounded overflow-hidden shadow-sm bg-primary-100 border border-primary-200 text-primary-700 z-10 cursor-pointer hover:bg-primary-200 transition-colors"
+    <div
+      class="absolute left-1 right-1 p-1.5 rounded overflow-hidden shadow-sm bg-primary-100 border border-primary-200 z-10 cursor-pointer hover:bg-primary-200 transition-colors"
       [style.top.px]="top()"
       [style.height.px]="height()"
     >

@@ -12,9 +12,9 @@ import { ButtonComponent } from '../../shared/components/button/button';
   template: `
     <div class="h-screen flex flex-col bg-secondary-50">
       <app-topbar></app-topbar>
-      
-      <main class="flex-1 p-4 sm:p-6 flex justify-center items-start overflow-auto">
-        <div class="bg-white rounded-xl shadow-lg border border-secondary-200 w-full max-w-xl overflow-hidden">
+
+      <main class="flex-1 p-3 sm:p-3 flex justify-center items-start overflow-auto">
+        <div class="bg-secondary-100 rounded-xl shadow-lg border border-secondary-200 w-full max-w-xl overflow-hidden">
           <div class="bg-primary-600 px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl font-bold text-white">New Appointment</h1>
             <button (click)="goBack()" class="text-primary-100 hover:text-white transition-colors">
@@ -28,7 +28,7 @@ import { ButtonComponent } from '../../shared/components/button/button';
             <!-- Date Select -->
             <div>
               <label class="block text-sm font-semibold text-secondary-700 mb-1">Date</label>
-              <select 
+              <select
                 formControlName="date"
                 class="w-full bg-secondary-50 border border-secondary-300 rounded-lg px-4 py-2 text-secondary-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none"
               >
@@ -43,7 +43,7 @@ import { ButtonComponent } from '../../shared/components/button/button';
               <!-- From Select -->
               <div>
                 <label class="block text-sm font-semibold text-secondary-700 mb-1">From</label>
-                <select 
+                <select
                   formControlName="from"
                   class="w-full bg-secondary-50 border border-secondary-300 rounded-lg px-4 py-2 text-secondary-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none"
                 >
@@ -57,7 +57,7 @@ import { ButtonComponent } from '../../shared/components/button/button';
               <!-- To Select -->
               <div>
                 <label class="block text-sm font-semibold text-secondary-700 mb-1">To</label>
-                <select 
+                <select
                   formControlName="to"
                   class="w-full bg-secondary-50 border border-secondary-300 rounded-lg px-4 py-2 text-secondary-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none disabled:opacity-50"
                 >
@@ -72,8 +72,8 @@ import { ButtonComponent } from '../../shared/components/button/button';
             <!-- Title -->
             <div>
               <label class="block text-sm font-semibold text-secondary-700 mb-1">Title</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 formControlName="title"
                 placeholder="Appointment Title"
                 class="w-full bg-secondary-50 border border-secondary-300 rounded-lg px-4 py-2 text-secondary-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none"
@@ -83,7 +83,7 @@ import { ButtonComponent } from '../../shared/components/button/button';
             <!-- Description -->
             <div>
               <label class="block text-sm font-semibold text-secondary-700 mb-1">Description</label>
-              <textarea 
+              <textarea
                 formControlName="description"
                 rows="4"
                 placeholder="Describe the appointment..."
@@ -92,14 +92,14 @@ import { ButtonComponent } from '../../shared/components/button/button';
             </div>
 
             <div class="pt-4 flex justify-end gap-3">
-              <button 
+              <button
                 type="button"
                 (click)="goBack()"
-                class="px-6 py-2 bg-white border border-secondary-300 text-secondary-700 rounded-lg font-semibold hover:bg-secondary-50 transition-colors"
+                class="px-6 py-2 bg-secondary-200 border border-secondary-300 text-secondary-900 rounded-lg font-semibold hover:bg-secondary-300 transition-colors"
               >
                 Cancel
               </button>
-              <app-button 
+              <app-button
                 [loading]="submitting()"
                 [disabled]="appointmentForm.invalid"
               >
@@ -132,7 +132,7 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.appointmentsService.getAvailableDates().subscribe(dates => this.availableDates.set(dates));
-    
+
     this.appointmentForm.get('date')?.valueChanges.subscribe(date => {
       if (date) {
         this.appointmentsService.getAvailableTimeSlots(date).subscribe(slots => {

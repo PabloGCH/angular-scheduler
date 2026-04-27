@@ -13,7 +13,7 @@ import { TopbarComponent } from '../../shared/components/topbar/topbar';
       <app-topbar></app-topbar>
       
       <main class="flex-1 p-4 sm:p-6 flex justify-center items-start overflow-auto">
-        <div class="bg-white rounded-xl shadow-lg border border-secondary-200 w-full max-w-2xl overflow-hidden">
+        <div class="bg-secondary-100 rounded-xl shadow-lg border border-secondary-200 w-full max-w-2xl overflow-hidden">
           @if (loading()) {
             <div class="p-12 flex justify-center">
               <div class="animate-spin rounded-full h-12 w-12 border-4 border-secondary-200 border-t-primary-600"></div>
@@ -68,10 +68,10 @@ import { TopbarComponent } from '../../shared/components/topbar/topbar';
               </div>
             </div>
             
-            <div class="bg-secondary-50 px-6 py-4 border-t border-secondary-200 flex justify-end">
+            <div class="bg-secondary-100 px-6 py-4 border-t border-secondary-200 flex justify-end">
               <button 
                 (click)="goBack()"
-                class="px-6 py-2 bg-white border border-secondary-300 text-secondary-700 rounded-lg font-semibold hover:bg-secondary-50 transition-colors"
+                class="px-6 py-2 bg-secondary-200 border border-secondary-300 text-secondary-900 rounded-lg font-semibold hover:bg-secondary-300 transition-colors"
               >
                 Back to Grid
               </button>

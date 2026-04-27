@@ -7,13 +7,18 @@
 - [x] Create choose appointment date view. Should not be guarded.
 - [x] Configuration view
 
-- [ ] Add support for variable time ranges
 
+- [ ] Change color palette
+
+- [ ] Find free hosting service
+
+- [ ] Add production configuration file with correct protocol and domain
+
+- [ ] Add support for variable time ranges
 - [ ] Implement configuration view 
   - [ ] Add sidebar
     - [ ] Availability.
     - [ ] Templates.
-
 - [ ] Make configuration sidebar responsive
 - [ ] Implement view for choosing an appointment.
 - [ ] Simulate flow of choosing an appointment.
@@ -21,5 +26,4 @@
 - [ ] Install toast library.
 - [ ] Simulate creation of new appointment.
 - [ ] Add fontawesome icons.
-
 - [ ] Add automated tests

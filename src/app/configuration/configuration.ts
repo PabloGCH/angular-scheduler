@@ -13,7 +13,7 @@ import { TopbarComponent } from '../shared/components/topbar/topbar';
       <main class="flex-1 p-4 sm:p-6 overflow-hidden">
         <div class="max-w-7xl mx-auto w-full">
           <h1 class="text-3xl font-bold text-secondary-900 mb-6">Configuration</h1>
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-secondary-200">
+          <div class="bg-secondary-100 p-6 rounded-lg shadow-sm border border-secondary-200">
             <p class="text-secondary-600">Configuration</p>
           </div>
         </div>

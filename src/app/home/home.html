@@ -3,7 +3,7 @@
 
   <main class="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden">
     @if (userType() === 'provider') {
-      <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm relative">
+      <div class="flex items-center justify-between mb-4 bg-secondary-100 p-2 rounded-lg border border-secondary-200 shadow-sm relative">
         <div class="flex-none w-30 sm:w-34">
           <button
             (click)="previousWeek()"
@@ -52,7 +52,7 @@
             </button>
 
             @if (menuOpen()) {
-              <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-secondary-200 shadow-lg rounded-lg z-50 p-2 flex flex-col gap-1">
+              <div class="absolute top-full left-0 right-0 mt-1 bg-secondary-100 border border-secondary-200 shadow-lg rounded-lg z-50 p-2 flex flex-col gap-1">
                 <button (click)="makeAppointment()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Make appointment</button>
                 <button (click)="giveAppointment()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Give appointment</button>
                 <button (click)="configure()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Configure</button>
@@ -87,7 +87,7 @@
     } @else {
       <div class="max-w-7xl mx-auto w-full">
         <h1 class="text-3xl font-bold text-secondary-900 mb-6">Welcome, Consumer</h1>
-        <div class="bg-white p-6 rounded-lg shadow-sm border border-secondary-200">
+        <div class="bg-secondary-100 p-6 rounded-lg shadow-sm border border-secondary-200">
           <p class="text-secondary-600">This is your consumer dashboard. Book your next appointment here.</p>
         </div>
       </div>
@@ -97,7 +97,7 @@
   <!-- Give Appointment Popup -->
   @if (showGivePopup()) {
     <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div class="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
+      <div class="bg-secondary-100 rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
         <div class="p-6">
           <h3 class="text-lg font-bold text-secondary-900 mb-2">Share Appointment Link</h3>
           <p class="text-sm text-secondary-600 mb-4">Send this link to someone so they can choose an appointment slot.</p>
@@ -106,7 +106,7 @@
             {{ giveUrl() }}
             <button
               (click)="copyToClipboard()"
-              class="absolute right-2 top-2 p-1.5 bg-white border border-secondary-200 rounded-md text-secondary-500 hover:text-primary-600 hover:border-primary-300 transition-all shadow-sm"
+              class="absolute right-2 top-2 p-1.5 bg-secondary-100 border border-secondary-200 rounded-md text-secondary-500 hover:text-primary-600 hover:border-primary-300 transition-all shadow-sm"
               title="Copy to clipboard"
             >
               @if (copySuccess()) {
