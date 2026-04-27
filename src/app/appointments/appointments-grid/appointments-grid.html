@@ -19,10 +19,25 @@
         <!-- Day Headers -->
         @for (day of days; track day.key) {
           <div
-            class="day-column-width p-2 text-center border-r border-secondary-200 last:border-r-0 flex-shrink-0"
-            [class.bg-primary-50]="isToday(day.key)"
+            class="day-column-width p-2 text-center border-r border-secondary-200 last:border-r-0 flex-shrink-0 flex flex-col items-center justify-center"
+            [class.bg-primary-100]="isHighlighted(day.key) && !isDisabled(day.key)"
+            [class.bg-secondary-200]="isDisabled(day.key)"
+            [class.bg-secondary-300]="isHighlighted(day.key) && isDisabled(day.key)"
           >
-            <div class="text-xs font-semibold text-secondary-500 uppercase">{{ day.label }}</div>
+            <div
+              class="text-[10px] font-bold uppercase tracking-wider"
+              [class.text-primary-700]="isHighlighted(day.key) && !isDisabled(day.key)"
+              [class.text-secondary-500]="!isHighlighted(day.key)"
+              [class.text-secondary-700]="isHighlighted(day.key) && isDisabled(day.key)"
+            >{{ day.label }}</div>
+            <div
+              class="text-xs font-black"
+              [class.text-primary-800]="isHighlighted(day.key) && !isDisabled(day.key)"
+              [class.text-secondary-900]="!isHighlighted(day.key)"
+              [class.text-secondary-900]="isHighlighted(day.key) && isDisabled(day.key)"
+            >
+              {{ getDateForDay(day.index) | date:'dd/MM' }}
+            </div>
           </div>
         }
       </div>
@@ -32,7 +47,7 @@
         <!-- Time Column (Sticky Left) -->
         <div class="w-16 sm:w-20 sticky left-0 z-30 bg-secondary-50 border-r border-secondary-200 flex-shrink-0">
           @for (slot of timeSlots; track slot) {
-            <div
+            <div 
               class="border-b border-secondary-200 text-secondary-500 flex items-center justify-center time-label"
               [style.height.px]="slotHeight"
             >
@@ -45,14 +60,17 @@
         @for (day of days; track day.key) {
           <div
             class="day-column-width relative border-r border-secondary-200 last:border-r-0 flex-shrink-0"
-            [class.bg-primary-50/30]="isToday(day.key)"
+            [class.bg-primary-50/50]="isHighlighted(day.key) && !isDisabled(day.key)"
+            [class.bg-secondary-100/50]="isDisabled(day.key)"
+            [class.bg-secondary-200/50]="isHighlighted(day.key) && isDisabled(day.key)"
           >
             <!-- Grid Rows -->
             @for (slot of timeSlots; track slot; let i = $index) {
               <div
                 class="border-b border-secondary-100"
                 [style.height.px]="slotHeight"
-                [class.bg-secondary-50/50]="i % 2 === 0"
+                [class.bg-secondary-50/50]="i % 2 === 0 && !isDisabled(day.key)"
+                [class.bg-secondary-200/20]="i % 2 === 0 && isDisabled(day.key)"
               ></div>
             }
 
@@ -62,6 +80,7 @@
                 [appointment]="app"
                 [top]="getTop(app.startTime)"
                 [height]="getHeight(app.startTime, app.endTime)"
+                (click)="onAppointmentClick(app.id)"
               ></app-appointment-item>
             }
           </div>

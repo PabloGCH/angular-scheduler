@@ -4,7 +4,7 @@
   <main class="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden">
     @if (userType() === 'provider') {
       <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm relative">
-        <div class="flex-none w-30 sm:w-34">
+        <div class="flex-none w-20 sm:w-24">
           <button
             (click)="previousWeek()"
             class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
@@ -12,21 +12,30 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span class="hidden sm:inline">Previous week</span>
-            <span class="sm:hidden">Prev </span>
+            <span class="hidden sm:inline">Prev</span>
+            <span class="sm:hidden">P</span>
           </button>
         </div>
 
         <div class="flex-1 flex items-center justify-start gap-2 sm:gap-4 px-4 overflow-hidden">
           <!-- Desktop Actions -->
           <div class="hidden md:flex items-center gap-2">
-            <button class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap">
+            <button
+              (click)="makeAppointment()"
+              class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap"
+            >
               Make appointment
             </button>
-            <button class="bg-secondary-100 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-200 transition-colors cursor-pointer whitespace-nowrap">
+            <button
+              (click)="giveAppointment()"
+              class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap"
+            >
               Give appointment
             </button>
-            <button class="border border-secondary-300 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-50 transition-colors cursor-pointer whitespace-nowrap">
+            <button
+              (click)="configure()"
+              class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap"
+            >
               Configure
             </button>
           </div>
@@ -44,22 +53,21 @@
 
             @if (menuOpen()) {
               <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-secondary-200 shadow-lg rounded-lg z-50 p-2 flex flex-col gap-1">
-                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Make appointment</button>
-                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Give appointment</button>
-                <button class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Configure</button>
+                <button (click)="makeAppointment()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Make appointment</button>
+                <button (click)="giveAppointment()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Give appointment</button>
+                <button (click)="configure()" class="text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 rounded cursor-pointer">Configure</button>
               </div>
             }
           </div>
-
         </div>
 
-        <div class="flex-none w-30 sm:w-34 flex justify-end">
+        <div class="flex-none w-20 sm:w-24 flex justify-end">
           <button
             (click)="nextWeek()"
             class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer transition-colors"
           >
-            <span class="hidden sm:inline">Next week</span>
-            <span class="sm:hidden">Next</span>
+            <span class="hidden sm:inline">Next</span>
+            <span class="sm:hidden">N</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
@@ -72,6 +80,7 @@
         <app-appointments-grid
           [appointments]="appointments()"
           [loading]="loading()"
+          [currentWeekStart]="currentWeekStart()"
           class="h-full"
         ></app-appointments-grid>
       </div>
@@ -84,4 +93,44 @@
       </div>
     }
   </main>
+
+  <!-- Give Appointment Popup -->
+  @if (showGivePopup()) {
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div class="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-secondary-900 mb-2">Share Appointment Link</h3>
+          <p class="text-sm text-secondary-600 mb-4">Send this link to someone so they can choose an appointment slot.</p>
+
+          <div class="bg-secondary-50 border border-secondary-200 rounded-lg p-3 mb-6 break-all font-mono text-xs text-primary-700 select-all relative group">
+            {{ giveUrl() }}
+            <button
+              (click)="copyToClipboard()"
+              class="absolute right-2 top-2 p-1.5 bg-white border border-secondary-200 rounded-md text-secondary-500 hover:text-primary-600 hover:border-primary-300 transition-all shadow-sm"
+              title="Copy to clipboard"
+            >
+              @if (copySuccess()) {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+              }
+            </button>
+          </div>
+
+          <div class="flex justify-end">
+            <button
+              (click)="closeGivePopup()"
+              class="bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-sm"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

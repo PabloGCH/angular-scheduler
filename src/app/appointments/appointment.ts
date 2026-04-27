@@ -15,4 +15,5 @@ export interface WeekAppointments {
   friday: Appointment[];
   saturday: Appointment[];
   sunday: Appointment[];
+  disabledDays?: string[]; // Array of keys like 'monday', 'tuesday', etc.
 }
