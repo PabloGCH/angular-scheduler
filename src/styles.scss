@@ -4,47 +4,46 @@
 
 @theme {
   --color-primary-50: #607D8B20;
-  --color-primary-100: #607D8B40; /* More visible highlight */
-  --color-primary-200: #607D8B60;
-  --color-primary-300: #607D8B80;
-  --color-primary-400: #607D8BA0;
-  --color-primary-500: #607D8BC0;
+  --color-primary-100: #607D8B40;
+  --color-primary-200: #CFD8DC; /* Light Blue Gray */
+  --color-primary-300: #B0BEC5;
+  --color-primary-400: #90A4AE;
+  --color-primary-500: #78909C;
   --color-primary-600: #607D8B; /* Primary Action */
   --color-primary-700: #546E7A; /* Secondary Action */
   --color-primary-800: #455A64;
   --color-primary-900: #37474F;
   --color-primary-950: #263238;
 
-  --color-secondary-50: #212121;  /* Main Background */
-  --color-secondary-100: #2C3E50; /* Surface/Cards */
-  --color-secondary-200: #455A64; /* Brighter Borders/Dividers */
-  --color-secondary-300: #546E7A; /* Brighter highlight for disabled */
+  --color-secondary-50: #121212;  /* Deep Black - Main Background */
+  --color-secondary-100: #1E1E1E; /* Dark Gray - Surface/Cards */
+  --color-secondary-200: #333333; /* Borders/Dividers */
+  --color-secondary-300: #444444;
   --color-secondary-400: #757575;
-  --color-secondary-500: #9E9E9E; /* Muted Text */
-  --color-secondary-600: #9E9E9E;
-  --color-secondary-700: #BDBDBD;
-  --color-secondary-800: #D2D2D2;
-  --color-secondary-900: #E0E0E0; /* Main Text */
-  --color-secondary-950: #EEEEEE;
+  --color-secondary-500: #BDBDBD; /* Muted Text */
+  --color-secondary-600: #CCCCCC;
+  --color-secondary-700: #E0E0E0;
+  --color-secondary-800: #F5F5F5;
+  --color-secondary-900: #FFFFFF; /* Pure White - Main Text */
+  --color-secondary-950: #FFFFFF;
 
-  /* Red scale for Error State */
-  --color-red-50: #E5737310;
-  --color-red-100: #E5737320;
-  --color-red-200: #E5737340;
-  --color-red-300: #E5737360;
-  --color-red-400: #E5737380;
-  --color-red-500: #E57373A0;
-  --color-red-600: #E57373; /* Error State */
-  --color-red-700: #D32F2F;
-  --color-red-800: #C62828;
-  --color-red-900: #B71C1C;
-  --color-red-950: #7F0000;
+  /* Vibrant Red for Error State */
+  --color-red-50: #FFEBEE;
+  --color-red-100: #FFCDD2;
+  --color-red-200: #EF9A9A;
+  --color-red-300: #E57373;
+  --color-red-400: #EF5350;
+  --color-red-500: #F44336;
+  --color-red-600: #FF1744; /* Vibrant Error Red */
+  --color-red-700: #D50000;
+  --color-red-800: #B71C1C;
+  --color-red-900: #7F0000;
 
   --calendar-time-font-size: 0.875rem;
 }
 
 @layer base {
   body {
-    @apply bg-secondary-50 text-secondary-900;
+    @apply bg-secondary-50 text-secondary-900 antialiased;
   }
 }

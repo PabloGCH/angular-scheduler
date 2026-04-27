@@ -10,7 +10,7 @@ import { SmallSpinnerComponent } from '../small-spinner/small-spinner';
       [type]="type()"
       [disabled]="disabled() || loading()"
       (click)="onClick.emit($event)"
-      class="w-full flex items-center justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-secondary-400 disabled:cursor-not-allowed min-h-[38px] cursor-pointer"
+      class="w-full flex items-center justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-secondary-300 disabled:text-secondary-500 disabled:cursor-not-allowed min-h-[42px] cursor-pointer transition-all duration-200"
     >
       @if (loading()) {
         <app-small-spinner class="mr-2"></app-small-spinner>
