@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
+import { Authenticator } from '../../../auth/authenticator';
 
 @Component({
   selector: 'app-topbar',
@@ -8,7 +8,7 @@ import { AuthService } from '../../../auth/auth.service';
     <nav class="bg-white border-b border-secondary-200 px-4 py-2.5 flex justify-end items-center">
       <button
         (click)="logout()"
-        class="p-2 text-secondary-600 hover:text-primary-600 hover:bg-secondary-50 rounded-lg transition-colors"
+        class="p-2 text-secondary-600 hover:text-primary-600 hover:bg-secondary-50 rounded-lg transition-colors cursor-pointer"
         title="Logout"
       >
         <svg
@@ -31,7 +31,7 @@ import { AuthService } from '../../../auth/auth.service';
   standalone: true
 })
 export class TopbarComponent {
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(Authenticator);
   private readonly router = inject(Router);
 
   logout() {

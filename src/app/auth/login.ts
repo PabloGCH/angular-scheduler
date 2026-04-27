@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../shared/components/button/button';
 import { InputEmailComponent } from '../shared/components/input-email/input-email';
 import { InputPasswordComponent } from '../shared/components/input-password/input-password';
-import { AuthService } from './auth.service';
+import { Authenticator } from './authenticator';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +14,15 @@ import { AuthService } from './auth.service';
     ReactiveFormsModule,
     ButtonComponent,
     InputEmailComponent,
-    InputPasswordComponent,
+    InputPasswordComponent
   ],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrl: './login.scss'
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(Authenticator);
+
   private readonly router = inject(Router);
 
   protected readonly loading = signal(false);

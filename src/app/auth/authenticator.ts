@@ -6,7 +6,7 @@ export type UserType = 'consumer' | 'provider';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class Authenticator {
   private readonly TOKEN_KEY = 'auth_token';
 
   login(email: string, password: string): Observable<string> {

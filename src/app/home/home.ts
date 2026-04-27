@@ -2,10 +2,9 @@ import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TopbarComponent } from '../shared/components/topbar/topbar';
-import { AppointmentsGridComponent } from '../shared/components/appointments-grid/appointments-grid';
-import { ButtonComponent } from '../shared/components/button/button';
-import { AuthService } from '../auth/auth.service';
-import { AppointmentsService } from '../appointments/appointments.service';
+import { AppointmentsGridComponent } from '../appointments/appointments-grid/appointments-grid';
+import { Authenticator } from '../auth/authenticator';
+import { AppointmentsManager } from '../appointments/appointments-manager';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +18,7 @@ import { AppointmentsService } from '../appointments/appointments.service';
           <!-- Action Buttons Section -->
           <div class="flex items-center justify-between mb-4 bg-white p-2 rounded-lg border border-secondary-200 shadow-sm">
             <div class="w-1/4">
-              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center">
+              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -28,16 +27,16 @@ import { AppointmentsService } from '../appointments/appointments.service';
             </div>
             
             <div class="w-2/4 flex justify-center gap-4">
-              <button class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors">
+              <button class="bg-primary-600 text-white px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors cursor-pointer">
                 Give appointment
               </button>
-              <button class="border border-secondary-300 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-50 transition-colors">
+              <button class="border border-secondary-300 text-secondary-700 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-secondary-50 transition-colors cursor-pointer">
                 Configure
               </button>
             </div>
 
             <div class="w-1/4 flex justify-end">
-              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center">
+              <button class="text-secondary-600 hover:text-primary-600 font-medium text-sm flex items-center cursor-pointer">
                 Next Week
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -70,8 +69,8 @@ import { AppointmentsService } from '../appointments/appointments.service';
   standalone: true
 })
 export class HomeComponent {
-  private readonly authService = inject(AuthService);
-  private readonly appointmentsService = inject(AppointmentsService);
+  private readonly authService = inject(Authenticator);
+  private readonly appointmentsService = inject(AppointmentsManager);
 
   protected readonly userType = computed(() => this.authService.getUserType());
   

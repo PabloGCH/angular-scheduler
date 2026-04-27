@@ -1,0 +1,43 @@
+.day-column-width {
+  /* Mobile < 400px: 1 day visible + time column */
+  min-width: calc(100vw - 6rem);
+}
+
+@media (min-width: 400px) {
+  .day-column-width {
+    /* 2 days visible */
+    min-width: calc((100vw - 6rem) / 2);
+  }
+}
+
+@media (min-width: 520px) {
+  .day-column-width {
+    /* 3 days visible */
+    min-width: calc((100vw - 6rem) / 3);
+  }
+}
+
+@media (min-width: 640px) {
+  .day-column-width {
+    /* 5 days visible */
+    min-width: calc((100vw - 6rem) / 5);
+  }
+}
+
+@media (min-width: 900px) {
+  .day-column-width {
+    /* All 7 days visible */
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+.time-label {
+  font-size: var(--calendar-time-font-size);
+}
+
+/* Support for w-max wrapper to allow horizontal scrolling if needed */
+:host {
+  display: block;
+  height: 100%;
+}

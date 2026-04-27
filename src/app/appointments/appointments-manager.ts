@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
-import { Appointment, WeekAppointments } from './appointments.model';
-import { HARDCODED_APPOINTMENTS } from './appointments.data';
+import { Appointment, WeekAppointments } from './appointment';
+import { HARDCODED_APPOINTMENTS } from './hardcoded-data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppointmentsService {
+export class AppointmentsManager {
   
   getProviderAppointments(date: Date): Observable<WeekAppointments> {
     // Calculate the start of the week (Monday) for the given date

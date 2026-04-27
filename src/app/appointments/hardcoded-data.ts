@@ -1,4 +1,4 @@
-import { Appointment } from './appointments.model';
+import { Appointment } from './appointment';
 
 // April 27, 2026 is a Monday
 export const HARDCODED_APPOINTMENTS: Appointment[] = [

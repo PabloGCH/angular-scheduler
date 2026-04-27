@@ -1,0 +1,63 @@
+<div class="flex flex-col h-full bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+  <!-- Main Scroll Container -->
+  <div class="flex-1 overflow-auto relative">
+
+    <!-- Table Wrapper -->
+    <div class="flex flex-col w-max min-w-full">
+
+      <!-- Header (Sticky Top) -->
+      <div class="flex sticky top-0 z-40 bg-secondary-50 border-b border-secondary-200">
+        <!-- Sticky Corner -->
+        <div class="w-16 sm:w-20 sticky left-0 z-50 bg-secondary-50 border-r border-secondary-200 p-2 text-xs font-semibold text-secondary-500 text-center flex-shrink-0 flex items-center justify-center">
+          Time
+        </div>
+        <!-- Day Headers -->
+        @for (day of days; track day.key) {
+          <div
+            class="day-column-width p-2 text-center border-r border-secondary-200 last:border-r-0 flex-shrink-0"
+            [class.bg-primary-50]="isToday(day.key)"
+          >
+            <div class="text-xs font-semibold text-secondary-500 uppercase">{{ day.label }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Body -->
+      <div class="flex">
+        <!-- Time Column (Sticky Left) -->
+        <div class="w-16 sm:w-20 sticky left-0 z-30 bg-secondary-50 border-r border-secondary-200 flex-shrink-0">
+          @for (slot of timeSlots; track slot) {
+            <div class="h-12 border-b border-secondary-200 text-secondary-500 flex items-center justify-center time-label">
+              {{ slot }}
+            </div>
+          }
+        </div>
+
+        <!-- Day Columns -->
+        @for (day of days; track day.key) {
+          <div
+            class="day-column-width relative border-r border-secondary-200 last:border-r-0 flex-shrink-0"
+            [class.bg-primary-50/30]="isToday(day.key)"
+          >
+            <!-- Grid Rows -->
+            @for (slot of timeSlots; track slot; let i = $index) {
+              <div
+                class="h-12 border-b border-secondary-100"
+                [class.bg-secondary-50/50]="i % 2 === 0"
+              ></div>
+            }
+
+            <!-- Appointments -->
+            @for (app of getAppointmentsForDay(day.key); track app.id) {
+              <app-appointment-item
+                [appointment]="app"
+                [top]="getTop(app.startTime)"
+                [height]="getHeight(app.startTime, app.endTime)"
+              ></app-appointment-item>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
