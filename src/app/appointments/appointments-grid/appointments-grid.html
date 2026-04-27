@@ -19,10 +19,10 @@
         <!-- Day Headers -->
         @for (day of days; track day.key) {
           <div
-            class="day-column-width p-2 text-center border-r border-secondary-200 last:border-r-0 flex-shrink-0 flex flex-col items-center justify-center"
-            [class.bg-primary-100]="isHighlighted(day.key) && !isDisabled(day.key)"
-            [class.bg-secondary-200]="isDisabled(day.key)"
-            [class.bg-secondary-300]="isHighlighted(day.key) && isDisabled(day.key)"
+            class="day-column-width p-2 text-center border-r border-secondary-200 last:border-r-0 flex-shrink-0 flex flex-col items-center justify-center transition-colors"
+            [class.bg-primary-500/30]="isHighlighted(day.key) && !isDisabled(day.key)"
+            [class.bg-secondary-300/50]="isDisabled(day.key) && !isHighlighted(day.key)"
+            [class.bg-primary-400/50]="isHighlighted(day.key) && isDisabled(day.key)"
           >
             <div
               class="text-[10px] font-bold uppercase tracking-wider"
@@ -54,17 +54,15 @@
         @for (day of days; track day.key) {
           <div
             class="day-column-width relative border-r border-secondary-200 last:border-r-0 flex-shrink-0"
-            [class.bg-primary-50/50]="isHighlighted(day.key) && !isDisabled(day.key)"
-            [class.bg-secondary-100/50]="isDisabled(day.key)"
-            [class.bg-secondary-200/50]="isHighlighted(day.key) && isDisabled(day.key)"
+            [class.bg-primary-500/10]="isHighlighted(day.key) && !isDisabled(day.key)"
+            [class.bg-secondary-300/10]="isDisabled(day.key)"
           >
             <!-- Grid Rows -->
             @for (slot of timeSlots; track slot; let i = $index) {
               <div
-                class="border-b border-secondary-100"
+                class="border-b border-secondary-200/40"
                 [style.height.px]="slotHeight"
-                [class.bg-secondary-100/50]="i % 2 === 0 && !isDisabled(day.key)"
-                [class.bg-secondary-200/20]="i % 2 === 0 && isDisabled(day.key)"
+                [class.bg-secondary-200/10]="i % 2 === 0"
               ></div>
             }
 
