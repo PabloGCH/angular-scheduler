@@ -1,6 +1,5 @@
 
 
-
 - [x] Install tailwind
 - [ ] Create login view
 - [ ] Create login service simulating BE

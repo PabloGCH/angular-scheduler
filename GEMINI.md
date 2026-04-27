@@ -1,0 +1,2 @@
+- The project uses Angular 21
+- It uses tailwind css for styling
